@@ -1,0 +1,112 @@
+html {
+    margin: 0;
+    padding: 0;
+    
+}
+
+@media screen and (min-width:1200px) {
+    .container {
+        width: 1200px;
+    }
+}
+.cc-nav {
+    position: relative;
+    background-color: #F6F8F9;
+    height: 37px;
+}
+
+.cc-nav ul {
+    position: relative;
+    padding: 0 20px;
+    margin: 0;
+    height: 100%;
+}
+
+.cc-nav ul li {
+    position: relative;
+    height: 100%;
+    line-height: 37px;
+    list-style-type: none;
+    display: inline-block;
+    /* font-size: 10px; */
+    margin: 0 15px;
+    
+    text-align: center;
+    
+}
+
+.cc-nav ul li:hover {
+    cursor: pointer;
+}
+
+.cc-nav ul li a {
+    /* margin: 25% 0; */
+    /* height: 100%; */
+    vertical-align: middle; 
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    
+    
+}
+
+
+.cc-nav img {
+    border-radius: 50%;
+    widows: 80%;
+    height: 80%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.carousel-control .glyphicon-chevron-right {
+    width: 131px !important;
+}
+
+.next {
+
+}
+
+
+/* 手机端底部导航样式 */
+.phoneBottom {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 21px !;
+    line-height: 21px;
+    background-color: #ffff;
+    text-align: center;
+}
+
+.phoneBottom span {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: -6px;
+}
+
+
+.phoneBottom p {
+    width: 40%;
+    height: 3px;
+    margin: -4px 0 0 0 !important;
+    background-color: #E2E8ED;
+    display: inline-block;
+}
+
+.gongneng a {
+    color: #000;
+}
+
+
+/* 导航响应式 */
+
+@media screen and (max-width:767px) {
+    .cc-nav li:nth-child(1){
+        left: 24%;
+    }
+}
+
+

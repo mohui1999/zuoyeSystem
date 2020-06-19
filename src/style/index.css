@@ -1,0 +1,124 @@
+/* 轮播样式调整 */
+#myCarousel img {
+    height: 500px !important;
+    width: 100%;
+}
+
+#myCarousel hr {
+    width: 100%;
+    height: 2px;
+}
+
+#myCarousel h1 {
+    text-align: left;
+}
+
+#myCarousel p {
+    text-align: left;
+    margin: 0 0 24px;
+}
+
+.carousel-caption {
+    left: 10%;
+    right: 10%;
+    padding: 18% 0;
+}
+
+.carousel-control .glyphicon-chevron-right {
+    top: 88%;
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+
+/* 其他新闻模块 */
+.otherNews {
+    padding: 70px;
+    height: 500px;
+}
+
+.oneOfNews {
+    margin: 35px 0 ;
+}
+
+.otherNews time {
+}
+
+
+/* 所有文章展示界面 */
+.allContent {
+    padding: 50px 0 0 0;
+}
+
+
+.oneOfArticle {
+    padding: 0 0 28px 0;
+}
+
+.oneOfArticle img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.oneOfArticle p:nth-child(1){
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.oneOfArticle p:nth-child(2){
+    line-height: 21px;
+    /* 设置字体抬头空格 */
+    /*text-indent: 25px;*/
+    font-size: 12px;
+    letter-spacing: 1px;
+    
+}
+
+/* 所有文章分类展示界面 */
+.oneOfArticleType {
+    margin: 0 0 60px 0;
+    
+}
+
+.oneOfArticleType span {
+    font-weight: 550;
+    
+}
+
+.oneOfArticleType :nth-last-child(1){
+    background-color: #DEDEDE;
+    border-radius: 2px;
+}
+
+.articleType {
+    padding:0 25px !important;
+    border-right: 1px solid;
+    border-color:rgba(0, 0, 0, 0.1)
+}
+
+
+/* 底部页脚样式 */
+.bottomPage {
+    
+    height: 88px;
+    background-color: #A6ADB4;
+  
+}
+
+
+
+@media screen and (max-width:767px) {
+    #myCarousel img {
+        height: 300px !important;
+        width: 100%;
+    }
+    .allContent {
+        background-color: #F6F8F9;
+    }
+}
+
+
+

@@ -1,0 +1,98 @@
+html {
+    background-color: #F7F7F7;
+}
+body {
+    background-color: #F7F7F7;
+}
+.cc-nav {
+    border-bottom: 1px  solid;
+    border-color:rgba(0, 0, 0, 0.11);
+}
+
+.container {
+    background-color: #F7F7F7 !important;
+}
+
+
+/* 作者信息展示界面 */
+.authorContent {
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.authorContent div:nth-child(1){
+    padding: 40px 0;
+}
+
+.authorContent div:nth-child(1) img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    margin:  0 auto;
+}
+
+.authorContent h4:nth-child(2){
+    text-align: center;
+}
+
+
+.authorContent div:nth-child(3) div{
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin: 10px 0;
+}
+.authorContent div:nth-child(3) div p{
+    text-align: center; 
+}
+
+.authorContent div:nth-last-child(1) {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.authorContent div:nth-last-child(1) button{
+    width: 70%;
+    background-color: #3273DC;
+    height: 30px;
+    border: none;
+    border-radius: 42px;
+    outline: none;
+}
+
+/* 主要信息展示 */
+.mainContent {
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+
+.liuyan{
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.recentArticle {
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.mainContent div:nth-child(1) {
+    padding: 10px 0px;
+}
+
+.mainContent div:nth-child(1) span {
+    opacity: 0.5;
+    padding: 0 10px;
+}
+
+.articleContent {
+    margin: 10px;
+}
+
+
+
