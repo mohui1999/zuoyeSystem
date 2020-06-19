@@ -196,12 +196,12 @@
             }
 
             this.$http.post('https://lzzzzl.top/info',{
-              body: {
+
                 user: that.user,
                 password: that.password,
                 choice: 1,
                 degree: 'BKS'
-              }
+
             },{emulateJSON: true}).then(response => {
                 console.log("学生登录")
                 console.log(response)
@@ -222,10 +222,10 @@
           }else if(that.degree=='JS'){
 
             this.$http.post('https://andatong.top/wxapp/teacher_login',{
-              body: {
+
                 Tno: that.user,
                 pwd: that.password,
-              }
+
             },{emulateJSON: true}).then(response => {
                 console.log(response)
                 console.log('请求成功')

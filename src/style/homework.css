@@ -8,9 +8,14 @@
 }
 
 .detail-container{
-    margin: 25px;
+    margin: 0px;
 }
 
 .hm-cursor{
   cursor:pointer
+}
+
+.hm-image{
+  max-width: 100%;
+  max-height: 100%;
 }

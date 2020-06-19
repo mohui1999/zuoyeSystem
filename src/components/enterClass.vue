@@ -62,34 +62,51 @@
       methods:{
 
         toClass(){
+          console.log(this.user)
+          console.log(this.stuname)
+
           var that = this;
           if(that.stuname!=''&&that.classid!=''){
             //不空，注册学生与班级
 
-            this.$http.post('https://lzzzzl.top/info',{
-              body: {
-                Sno: that.user,
-                name: that.stuname,
+            this.$http.post('https://andatong.top/wxapp/create_student',{
+                Sno: this.user,
+                name: this.stuname,
                 userAvatar: 'http://xiemenglei.cn/wp-content/uploads/2019/10/avator4.png',
-              }
             },{emulateJSON: true}).then(response => {
                 console.log("注册学生")
                 console.log(response)
-                if ( response.status == 200){
-                  // this.$router.push('/home')
-                  this.alert("加入班级成功！")
+                if ( response.status == 200 && response.body.status=="success"){
+                  //注册加入班级
+                  this.$http.post('https://andatong.top/wxapp/class_api',{
+                    Sno: this.user,
+                    character: "student",
+                    class_id: that.classid,
+                  },{emulateJSON: true}).then(response => {
+                      console.log("注册班级")
+                      console.log(response)
+                      if ( response.status == 200 && response.body.status=="success"){
+                        // this.$router.push('/home')
+                        alert("加入班级成功！")
+
+                      }else {
+                        alert("加入班级失败，请稍后再试！")
+                      }
+                    },
+                    response => {
+                      console.log('请求失败')
+                    });
 
                 }else {
-                  this.alert("加入班级失败，请稍后再试！")
+                  alert("加入班级失败，请稍后再试！")
                 }
               },
               response => {
                 console.log('请求失败')
               });
 
-
           }else{
-            this.alert("信息不全！")
+            alert("信息不全！")
           }
 
         }

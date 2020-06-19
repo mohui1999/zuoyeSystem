@@ -4,6 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import home from '@/components/home'
 import enterClass from '@/components/enterClass'
+import hmTea from '@/components/hmTea'
+import hmStu from '@/components/hmStu'
 
 Vue.use(Router)
 //app.js
@@ -23,6 +25,16 @@ export default new Router({
       path: '/enterClass',
       name: 'enterClass',
       component: enterClass
+    },
+    {
+      path: '/hmStu',
+      name: 'hmStu',
+      component: hmStu
+    },
+    {
+      path: '/hmTea',
+      name: 'hmTea',
+      component: hmTea
     }
   ]
 })

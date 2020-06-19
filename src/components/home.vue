@@ -29,20 +29,22 @@
 
 
         <!-- 作业列表 -->
-        <div class="btn-group" role="group" aria-label="..." style="margin: 25px;" v-if="degree!='JS'">
-          <button type="button" class="btn btn-default" v-on:click="status ='待完成' "
-                  @change="getstatus" :style="{'background-color' : status==='待完成' ? '#7BA1C7' : '#FFFFFF'}">待完成</button>
-          <button type="button" class="btn btn-default" v-on:click="status ='已完成' "
-                  @change="getstatus" :style="{'background-color' : status==='已完成' ? '#7BA1C7' : '#FFFFFF'}">已完成</button>
-          <button type="button" class="btn btn-default" v-on:click="status ='已批改' "
-                  @change="getstatus" :style="{'background-color' : status==='已批改' ? '#7BA1C7' : '#FFFFFF'}">已批改</button>
-        </div>
-        <div class="col-sm-8" style="padding:0 25px;">
+
+        <div class="col-sm-8" style="padding:0 25px;" v-if="degree=='BKS'">
+          <div class="btn-group" role="group" aria-label="..." style="margin: 25px;" >
+            <button type="button" class="btn btn-default" v-on:click="status ='待完成' "
+                    @change="getstatus" :style="{'background-color' : status==='待完成' ? '#7BA1C7' : '#FFFFFF'}">待完成</button>
+            <button type="button" class="btn btn-default" v-on:click="status ='已完成' "
+                    @change="getstatus" :style="{'background-color' : status==='已完成' ? '#7BA1C7' : '#FFFFFF'}">已完成</button>
+            <button type="button" class="btn btn-default" v-on:click="status ='已批改' "
+                    @change="getstatus" :style="{'background-color' : status==='已批改' ? '#7BA1C7' : '#FFFFFF'}">已批改</button>
+          </div>
+
           <div class="allOfArticle">
             <!--作业-->
-            <div class="oneOfArticle" v-for="item in homework_lst">
+            <div class="oneOfArticle" v-for="item in homework_lst" v-on:click="tohmStu(item.homework_id)" >
               <div>
-                <p>{{item.title}}</p>
+                <p class="hm-cursor">{{item.title}}</p>
                 <br>
                 <p class="glyphicon glyphicon-book time" style="opacity: 0.5; line-height: 14px;"><span
                   style="vertical-align: top;margin-left: 7px;">{{item.class_name}}</span> </p>
@@ -60,9 +62,35 @@
         </div>
       </div>
 
+
+<!--      老师-->
+      <div class="col-sm-8" style="padding:0 25px;" v-if="degree=='JS'">
+
+        <div class="allOfArticle">
+          <!--作业-->
+          <div class="oneOfArticle" v-for="item in homework_lst" v-on:click="toPigai(item.homework_id)">
+            <div>
+              <p class="hm-cursor">{{item.title}}</p>
+              <br>
+              <p class="glyphicon glyphicon-book time" style="opacity: 0.5; line-height: 14px;"><span
+                style="vertical-align: top;margin-left: 7px;">{{item.class_name}}</span> </p>
+              <br>
+              <p class="glyphicon glyphicon-user time" style="opacity: 0.5; line-height: 14px;"><span
+                style="vertical-align: top;margin-left: 7px;">{{item.teacher_name}}</span> </p>
+              <br>
+              <p class="glyphicon glyphicon-time time" style="opacity: 0.5; line-height: 14px;"><span
+                style="vertical-align: top;margin-left: 7px;">{{item.end_time}}</span> </p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     </div>
   </div>
-</div>
+
 </template>
 
 <script>
@@ -72,6 +100,7 @@
         return {
           homework_lst:null,
           status:'待完成',
+          homework_id:'',
 
         }
       },
@@ -101,6 +130,20 @@
 
         toSend(){
           console.log("发送")
+        },
+
+        tohmStu(res){
+          console.log(res)
+          this.homework_id = res
+          this.$store.state.homework_id = res
+          this.$router.push('/hmStu')
+        },
+
+        toPigai(res){
+          console.log(res)
+          this.homework_id = res
+          this.$store.state.homework_id = res
+          this.$router.push('/hmTea')
         },
 
         getList(){
