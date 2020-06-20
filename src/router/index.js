@@ -6,6 +6,9 @@ import home from '@/components/home'
 import enterClass from '@/components/enterClass'
 import hmTea from '@/components/hmTea'
 import hmStu from '@/components/hmStu'
+import assignHm from '@/components/assignHm'
+import datePicker from "../../static/datePicker"
+
 
 Vue.use(Router)
 //app.js
@@ -35,6 +38,14 @@ export default new Router({
       path: '/hmTea',
       name: 'hmTea',
       component: hmTea
+    },
+    {
+      path: '/assignHm',
+      name: 'assignHm',
+      component: assignHm
     }
+
+
+    //
   ]
 })

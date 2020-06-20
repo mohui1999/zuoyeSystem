@@ -5,7 +5,7 @@
     <div class="row">
       <div class="allContent">
         <!-- 左边栏 -->
-        <div class="col-sm-4 articleType hidden-xs">
+        <div class="col-sm-4 articleType hidden-xs hm-left">
           <div>
             <h3 style="font-weight: 600; margin: 0 0 40px 0;">作业</h3>
             <div class="oneOfArticleType clearfix hm-cursor" v-on:click="getList">
@@ -30,7 +30,7 @@
 
         <!-- 作业列表 -->
 
-        <div class="col-sm-8" style="padding:0 25px;" v-if="degree=='BKS'">
+        <div class="col-sm-8 hm-right" style="padding:0 25px;" v-if="degree=='BKS'">
           <div class="btn-group" role="group" aria-label="..." style="margin: 25px;" >
             <button type="button" class="btn btn-default" v-on:click="status ='待完成' "
                     @change="getstatus" :style="{'background-color' : status==='待完成' ? '#7BA1C7' : '#FFFFFF'}">待完成</button>
@@ -42,7 +42,7 @@
 
           <div class="allOfArticle">
             <!--作业-->
-            <div class="oneOfArticle" v-for="item in homework_lst" v-on:click="tohmStu(item.homework_id)" >
+            <div class="oneOfArticle hm-bg hm-cursor" v-for="item in homework_lst" v-on:click="tohmStu(item.homework_id)" >
               <div>
                 <p class="hm-cursor">{{item.title}}</p>
                 <br>
@@ -64,11 +64,11 @@
 
 
 <!--      老师-->
-      <div class="col-sm-8" style="padding:0 25px;" v-if="degree=='JS'">
+      <div class="col-sm-8 hm-right" style="padding:0 25px;" v-if="degree=='JS'">
 
-        <div class="allOfArticle">
+        <div class="allOfArticle ">
           <!--作业-->
-          <div class="oneOfArticle" v-for="item in homework_lst" v-on:click="toPigai(item.homework_id)">
+          <div class="oneOfArticle hm-bg hm-cursor" v-for="item in homework_lst" v-on:click="toPigai(item.homework_id)">
             <div>
               <p class="hm-cursor">{{item.title}}</p>
               <br>
@@ -130,6 +130,7 @@
 
         toSend(){
           console.log("发送")
+          this.$router.push('/assignHm')
         },
 
         tohmStu(res){

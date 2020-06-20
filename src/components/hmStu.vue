@@ -19,7 +19,7 @@
                 style="vertical-align: top;margin-left: 7px;">{{homeworks.end_time}}</span> </p>
 
             </div>
-<!--            评分区域-->
+            <!--  评分区域-->
             <div class="oneOfArticle" v-if="homeworks.student_answers[0].status==='已批改'">
 
               <h3>成绩</h3>
@@ -27,7 +27,7 @@
               <h4>评语</h4>
               <p>{{homeworks.student_answers[0].content_from_teacher}}</p>
             </div>
-<!--已经回答的区域-->
+          <!--已经回答的区域-->
             <div class="oneOfArticle" >
 
               <h3>我的回答</h3>
@@ -35,8 +35,6 @@
               <div v-for="item in homeworks.student_answers[0].image">
                 <img :src="item" class="this-img" alt="作业图片">
               </div>
-
-
             </div>
 
 

@@ -12,6 +12,9 @@ Vue.use(Vuex)
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
+import Element from 'element-ui'
+Vue.use(Element)
+
 import axios from 'axios'
 Vue.prototype.axios = axios //修改原始数据
 // axios.defaults.baseURL = 'https://andatong.top'
@@ -29,6 +32,7 @@ import './style/login.css'
 import './style/index.css'
 import './style/homework.css'
 import './style/plus/bootstrap-3.3.7/dist/css/bootstrap.min.css'
+import 'element-ui/lib/theme-chalk/index.css'
 // import 'http://at.alicdn.com/t/font_1396919_9f9t4yg35f.css'
 
 Vue.config.productionTip = false
