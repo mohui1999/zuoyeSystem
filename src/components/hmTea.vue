@@ -26,14 +26,20 @@
           <div class="stu-item col-md-12 hm-cursor hm-bg hm-stuitem" v-for="(item,index) in homeworks.student_answers" v-on:click="getanswerdetail(item,index)">
             <div style="height: 10px"></div>
             <div class="col-sm-5 col-md-5">
-              <p>{{item.student_name}}</p>
-              <p>{{item.student_Sno}}</p>
+              <p class="el-icon-user time" style=" line-height: 14px;"><span
+                style="vertical-align: top;margin-left: 7px;">{{item.student_name}}</span> </p>
+              <br>
+              <p class="el-icon-magic-stick time" style=" line-height: 14px;"><span
+                style="vertical-align: top;margin-left: 7px;">{{item.student_Sno}}</span> </p>
+<!--              <p>{{item.student_name}}</p>-->
+<!--              <p>{{item.student_Sno}}</p>-->
             </div>
             <div class="col-sm-3 col-md-3">
               <span class="label label-success pull-right" v-if="item.status==='已完成'">未批改</span>
               <span class="label label-danger pull-right" v-if="item.status==='待完成'">未完成</span>
               <span class="label label-primary pull-right" v-if="item.status==='已批改'">{{item.grade}}</span>
             </div>
+            <div class="col-sm-3 col-md-3"></div>
           </div>
           <br>
         </div>
@@ -50,6 +56,12 @@
         <div class="oneOfArticle"  v-if="answerdetail!=''">
 
           <h3>学生回答</h3>
+          <p class="el-icon-user time" style=" line-height: 14px;"><span
+            style="vertical-align: top;margin-left: 7px;">{{answerdetail.student_name}}</span> </p>
+          <br>
+          <p class="el-icon-magic-stick time" style=" line-height: 14px;"><span
+            style="vertical-align: top;margin-left: 7px;">{{answerdetail.student_Sno}}</span> </p>
+          <br>
           <p>{{answerdetail.content}}</p>
           <div v-for="item in answerdetail.image">
             <img :src="item" class="this-img" alt="作业图片">

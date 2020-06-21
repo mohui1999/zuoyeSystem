@@ -3282,10 +3282,6 @@ input[type=radio] {
   line-height: normal
 }
 
-input[type=file] {
-  display: block
-}
-
 input[type=range] {
   display: block;
   width: 100%

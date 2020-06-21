@@ -12,7 +12,7 @@
                 <hr style="width: 100px;border:1px solid #ff4136">
                 <p>Anhui University
                 </p>
-                <img class="login-avatar"  src="http://xiemenglei.cn/wp-content/uploads/2019/07/avatar.jpg">
+                <img class="login-avatar"  src="http://xiemenglei.cn/wp-content/uploads/2020/06/ahu-img.jpg">
               </div>
             </div>
           </div>
@@ -195,29 +195,29 @@
                 degree: 'BKS'
             }
 
-            this.$http.post('https://lzzzzl.top/info',{
-
-                user: that.user,
-                password: that.password,
-                choice: 1,
-                degree: 'BKS'
-
-            },{emulateJSON: true}).then(response => {
-                console.log("学生登录")
-                console.log(response)
-                if ( response.status == 200){
-                  // 如果登录成功，则跳转到主页
-                  this.$router.push('/home')
-
-                }else {
-                  this.$message.error('登录失败');
-                }
-              },
-              response => {
-                console.log('请求失败')
-              });
-            console.log("学生登录")
-            // this.$router.push('/home')
+            // this.$http.post('https://lzzzzl.top/info',{
+            //
+            //     user: that.user,
+            //     password: that.password,
+            //     choice: 1,
+            //     degree: 'BKS'
+            //
+            // },{emulateJSON: true}).then(response => {
+            //     console.log("学生登录")
+            //     console.log(response)
+            //     if ( response.status == 200){
+            //       // 如果登录成功，则跳转到主页
+            //       this.$router.push('/home')
+            //
+            //     }else {
+            //       this.$message.error('登录失败');
+            //     }
+            //   },
+            //   response => {
+            //     console.log('请求失败')
+            //   });
+            // console.log("学生登录")
+            this.$router.push('/home')
 
           }else if(that.degree=='JS'){
 

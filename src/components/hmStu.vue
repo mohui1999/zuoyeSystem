@@ -47,14 +47,44 @@
               <br>
               <textarea class="form-control" rows="10" v-model="answer"></textarea>
               <br>
-              <div class="form-group">
-                <label for="exampleInputFile">图片上传</label>
-                <input type="file" id="exampleInputFile">
-                <!--                    <p class="help-block">Example block-level help text here.</p>-->
+<!--              <el-upload-->
+<!--                action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--                list-type="picture-card"-->
+<!--                :on-preview="handlePictureCardPreview"-->
+<!--                :on-remove="handleRemove">-->
+<!--                <i class="el-icon-plus"></i>-->
+<!--              </el-upload>-->
+
+              <p style="font-weight: bold">图片上传</p>
+              <div>
+                <div>
+                  <el-upload
+                    class="upload-demo"
+                    action="https://andatong.top/wxapp/upload_img"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :file-list="fileList"
+
+                    :limit="3"
+                    :multiple="true"
+                    :on-success="onSuccess"
+                    :before-upload="beforeAvatarUpload"
+                    :on-exceed="handleExceed"
+                    :on-error="imgUploadError"
+                    list-type="picture">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，数量不超过三张，且不超过2Mb</div>
+                  </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
+                </div>
               </div>
+
               <br>
+              <div style="height: 10px;"></div>
               <p>
-                <button type="button" class="btn btn-primary">  提  交  </button>
+                <el-button type="primary" v-on:click="toSubmit"> 提 交 <i class="el-icon-upload el-icon--right"></i></el-button>
               </p>
 
             </div>
@@ -77,6 +107,13 @@
         return {
           homeworks:'',
           answer:'',
+          imgUrl:[],
+          fileList:[],
+          img1:'',
+          img2:'',
+          img3:'',
+          dialogImageUrl: '',
+          dialogVisible: false
 
 
         }
@@ -96,12 +133,12 @@
         this.getHomework()
       },
 
-      methods:{
+      methods: {
 
-        getHomework(){
-          var that =this;
-          this.$http.get('https://andatong.top/wxapp/singl_homework_info',{
-            params:{
+        getHomework() {
+          var that = this;
+          this.$http.get('https://andatong.top/wxapp/singl_homework_info', {
+            params: {
 
               Sno: that.user,
               character: "student",
@@ -109,19 +146,126 @@
 
             }
           }).then(response => {
-            if(response.status==200){
-              console.log('请求成功')
+              if (response.status == 200) {
+                console.log('请求成功')
 
-              console.log(response)
-              that.homeworks=response.body
-            }else{
-              alert("加载失败，请重试")
-            }
+                console.log(response)
+                that.homeworks = response.body
+              } else {
+                alert("网络异常，请重试")
+              }
             },
             response => {
               alert("加载失败，请重试")
             });
 
+        },
+        handleRemove(file, fileList) {
+          console.log(file, fileList)
+          if(file.response[0].img_path==this.img1){
+            this.img1=''
+          }else if(file.response[0].img_path==this.img2){
+            this.img2=''
+          }else if(file.response[0].img_path==this.img3){
+            this.img3=''
+          }
+        },
+        handlePictureCardPreview(file) {
+          this.dialogImageUrl = file.url;
+
+        },
+        handlePreview(file) {
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
+        },
+        onSuccess:function(res){
+          console.log(res);
+          if(this.img1==""){
+            this.img1=res[0].img_path;
+          }else if(this.img2==""){
+            this.img2=res[0].img_path;
+          }else if(this.img3==""){
+            this.img3=res[0].img_path;
+          }
+
+
+        },
+        beforeAvatarUpload(file) {//文件上传之前调用做一些拦截限制
+          // console.log(file);
+          const isJPG = true;
+          // const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+
+          // if (!isJPG) {
+          //   this.$message.error('上传头像图片只能是 JPG 格式!');
+          // }
+          if (!isLt2M) {
+            this.$message.error('上传图片大小不能超过 2MB!');
+          }
+          return isJPG && isLt2M;
+        },
+        handleExceed(files, fileList) {//图片上传超过数量限制
+          this.$message.error('上传图片不能超过3张!');
+          // console.log(file, fileList);
+        },
+        imgUploadError(err, file, fileList){//图片上传失败调用
+          console.log(err)
+          this.$message.error('上传图片失败!');
+        },
+
+        toSubmit(){
+          //提交作业
+          var that = this;
+          if(this.answer==''&&this.img1==''&&this.img2==''&&this.img3==''){
+
+            this.$message({
+              message: '没有填写答案哦!',
+              type: 'warning'
+            });
+          }else{
+            this.$http.post('https://andatong.top/wxapp/homework_student',{
+              Sno: that.user,
+              homework_id: that.homework_id,
+              content: that.answer,
+              img1: that.img1,
+              img2: that.img2,
+              img3: that.img3
+
+            },{emulateJSON: true}).then(response => {
+                console.log("提交作业")
+                console.log(response)
+                if ( response.status == 200 && response.body.status=="success"){
+                  this.$message({
+                    message: '作业提交成功',
+                    type: 'success'
+                  });
+                  this.getHomework()
+                }else {
+                  this.$message.error('提交失败，请稍后再试');
+                }
+              },
+              response => {
+                console.log('请求失败');
+                this.$message.error('提交失败，请稍后再试');
+              });
+
+
+          }
+
+        }
+
+      },
+      watch:{
+        img1:function(){
+          //this.count++;
+          console.log(this.img1);
+
+        },
+        img2:function () {
+          console.log(this.img2)
+        },
+        img3:function () {
+          console.log(this.img3)
         }
       }
     }

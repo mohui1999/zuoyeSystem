@@ -9,10 +9,11 @@
           <div class="form-group">
             <input type="text" class="form-control" v-model="title" id="hmtitle" placeholder="作业标题">
           </div>
+          <br>
+          <textarea class="form-control" rows="8" v-model="context" placeholder="作业内容"></textarea>
+          <br>
         </form>
-        <br>
-        <textarea class="form-control" rows="10" v-model="context" placeholder="作业内容"></textarea>
-        <br>
+
         <p>班级选择</p>
         <el-select v-model="classvalue" placeholder="请选择">
           <el-option
@@ -34,8 +35,9 @@
           </el-date-picker>
         </div>
         <br>
+        <div style="height: 10px;"></div>
         <p>
-          <button type="button" class="btn btn-primary btn-md btn-block" > 提   交 </button>
+          <button type="button" class="btn btn-primary btn-md btn-block" v-on:click="toAssign"> 提   交 </button>
         </p>
 
         <br>
@@ -60,6 +62,7 @@
             classid:'',
             classvalue: '',
             classList:[],
+            timeString:'',
 
           }
         },
@@ -80,6 +83,37 @@
         },
 
         methods:{
+
+          toAssign(){
+            var that = this;
+            if(that.title == ''||this.context==''||this.classvalue==''||this.timeString==''){
+              alert("请完整填写题目信息");
+            }else{
+
+              this.$http.post('https://andatong.top/wxapp/homework_teacher',{
+                Tno: that.user,
+                class_id: that.classvalue,
+                title: that.title,
+                content: that.context,
+                end_time: that.timeString,
+
+              },{emulateJSON: true}).then(response => {
+                  console.log("发布作业")
+                  console.log(response)
+                  if ( response.status == 200 && response.body.status=="success"){
+                    alert("发送成功！")
+                  }else {
+                    alert("发送失败，请稍后再试！")
+                  }
+                },
+                response => {
+                  console.log('请求失败');
+                  alert("发送失败，请稍后再试！");
+                });
+
+            }
+          },
+
           selectendDate(){
             var that = this;
             var calendar = new datePicker();
@@ -122,6 +156,19 @@
               response => {
                 console.log('请求失败')
               });
+          },
+          formatEDate:function (date) {
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            var minute = date.getMinutes();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            var second= date.getSeconds();
+            second = minute < 10 ? ('0' + second) : second;
+            return y + '-' + m + '-' + d+' '+h+':'+minute;
           }
 
         },
@@ -135,9 +182,25 @@
         endtime:function(){
           //this.count++;
           console.log(this.endtime);
+          var date = this.endtime;
           //时间转换
+          // var endtimeString = this.formatEDate(this.endtime)
 
+          var y = date.getFullYear();
+          var m = date.getMonth() + 1;
+          m = m < 10 ? ('0' + m) : m;
+          var d = date.getDate();
+          d = d < 10 ? ('0' + d) : d;
+          var h = date.getHours();
+          var minute = date.getMinutes();
+          minute = minute < 10 ? ('0' + minute) : minute;
+          var second= date.getSeconds();
+          second = minute < 10 ? ('0' + second) : second;
+          var timeString = y + '-' + m + '-' + d+' '+h+':'+minute;
+          console.log(timeString)
+          this.timeString = timeString;
         },
+
       }
     }
 </script>

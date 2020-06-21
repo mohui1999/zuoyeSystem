@@ -12,7 +12,7 @@
               <span>我的作业</span>
               <span class="pull-right">></span>
             </div>
-            <div class="oneOfArticleType clearfix hm-cursor">
+            <div class="oneOfArticleType clearfix hm-cursor" v-on:click="toMyClass">
               <span>我的班级</span>
               <span class="pull-right">></span>
             </div>
@@ -43,19 +43,29 @@
           <div class="allOfArticle">
             <!--作业-->
             <div class="oneOfArticle hm-bg hm-cursor" v-for="item in homework_lst" v-on:click="tohmStu(item.homework_id)" >
-              <div>
-                <p class="hm-cursor">{{item.title}}</p>
-                <br>
-                <p class="glyphicon glyphicon-book time" style="opacity: 0.5; line-height: 14px;"><span
-                  style="vertical-align: top;margin-left: 7px;">{{item.class_name}}</span> </p>
-                <br>
-                <p class="glyphicon glyphicon-user time" style="opacity: 0.5; line-height: 14px;"><span
-                  style="vertical-align: top;margin-left: 7px;">{{item.teacher_name}}</span> </p>
-                <br>
-                <p class="glyphicon glyphicon-time time" style="opacity: 0.5; line-height: 14px;"><span
-                  style="vertical-align: top;margin-left: 7px;">{{item.end_time}}</span> </p>
+              <div class="row">
+                <div class="col-sm-8 col-md-8">
+                  <div>
+                    <p>{{item.title}}</p>
+                    <br>
+                    <p class="glyphicon glyphicon-book time" style="opacity: 0.5; line-height: 14px;"><span
+                      style="vertical-align: top;margin-left: 7px;">{{item.class_name}}</span> </p>
+                    <br>
+                    <p class="glyphicon glyphicon-user time" style="opacity: 0.5; line-height: 14px;"><span
+                      style="vertical-align: top;margin-left: 7px;">{{item.teacher_name}}</span> </p>
+                    <br>
+                    <p class="glyphicon glyphicon-time time" style="opacity: 0.5; line-height: 14px;"><span
+                      style="vertical-align: top;margin-left: 7px;">{{item.end_time}}</span> </p>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                  <span class="label label-success " v-if="status==='已完成'">已完成</span>
+                  <span class="label label-danger " v-if="status==='待完成'">待完成</span>
+                  <span class="label label-primary " v-if="status==='已批改'">{{item.grade}}</span>
+                </div>
 
               </div>
+
             </div>
 
           </div>
@@ -126,6 +136,10 @@
 
         enterClass(){
           this.$router.push('/enterClass')
+        },
+
+        toMyClass(){
+          this.$router.push('/myClass')
         },
 
         toSend(){

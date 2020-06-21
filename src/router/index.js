@@ -7,6 +7,7 @@ import enterClass from '@/components/enterClass'
 import hmTea from '@/components/hmTea'
 import hmStu from '@/components/hmStu'
 import assignHm from '@/components/assignHm'
+import myClass from '@/components/myClass'
 import datePicker from "../../static/datePicker"
 
 
@@ -43,6 +44,11 @@ export default new Router({
       path: '/assignHm',
       name: 'assignHm',
       component: assignHm
+    },
+    {
+      path: '/myClass',
+      name: 'myClass',
+      component: myClass
     }
 
 
