@@ -1,12 +1,32 @@
 <template>
   <div>
+
+    <div class="container-fluid hidden-xs">
+      <div class="row">
+        <nav class="cc-nav">
+          <ul class="clearfix">
+            <li class="pull-left"><a style="color: #5574F7;" v-on:click="toHome">HOMI</a></li>
+            <li class="pull-left iconfont iconego-menu visible-xs-block"></li>
+            <!--            <li class="pull-right"><img src="../img/man-1.png" alt=""></li>-->
+
+            <li class="pull-right hidden-xs" v-on:click="loginOut"><a>退出登录</a></li>
+            <li class="pull-right hidden-xs" v-on:click="toHome"><a>首页</a></li>
+            <!--          <li class="pull-right hidden-xs"><a>登录</a></li>-->
+
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+    <div style="height: 40px;"></div>
+
     <div style="height: 20px;"></div >
 
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div class="col-md-4" v-for="item in classList">
         <div class="col-md-1"></div>
-        <div class="hm-cla-con col-md-10">
+        <div class="hm-cla-con col-md-10" style="margin-bottom: 30px">
           <p class="glyphicon glyphicon-book time" style="opacity: 0.9; line-height: 14px;"><span
             style="vertical-align: top;margin-left: 7px;">{{item.class_name}}</span> </p>
           <br>
@@ -46,6 +66,34 @@
       },
 
       methods:{
+        toHome(){
+          this.$router.push('/home')
+        },
+
+        loginOut(){
+
+          this.$confirm('是否退出登录?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$store.state.user = this.user
+            this.$store.state.degree = this.degree
+            this.$router.push('/')
+            this.$message({
+              type: 'info',
+              message: '已登出'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消登出'
+            });
+          });
+
+
+        },
+
         getclassList(){
           var that = this;
           if (that.degree=='BKS'){

@@ -1,5 +1,24 @@
 <template>
 <div id="home">
+  <div class="container-fluid hidden-xs">
+    <div class="row">
+      <nav class="cc-nav">
+        <ul class="clearfix">
+          <li class="pull-left"><a style="color: #5574F7;" v-on:click="toHome">HOMI</a></li>
+          <li class="pull-left iconfont iconego-menu visible-xs-block"></li>
+          <!--            <li class="pull-right"><img src="../img/man-1.png" alt=""></li>-->
+
+          <li class="pull-right hidden-xs" v-on:click="loginOut"><a>退出登录</a></li>
+          <li class="pull-right hidden-xs" v-on:click="toHome"><a>首页</a></li>
+<!--          <li class="pull-right hidden-xs"><a>登录</a></li>-->
+
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+  <div style="height: 40px;"></div>
+
   <!-- 首页内容 -->
   <div class="container" style="margin-bottom: 40px; ">
     <div class="row">
@@ -31,14 +50,23 @@
         <!-- 作业列表 -->
 
         <div class="col-sm-8 hm-right" style="padding:0 25px;" v-if="degree=='BKS'">
-          <div class="btn-group" role="group" aria-label="..." style="margin: 25px;" >
-            <button type="button" class="btn btn-default" v-on:click="status ='待完成' "
-                    @change="getstatus" :style="{'background-color' : status==='待完成' ? '#7BA1C7' : '#FFFFFF'}">待完成</button>
-            <button type="button" class="btn btn-default" v-on:click="status ='已完成' "
-                    @change="getstatus" :style="{'background-color' : status==='已完成' ? '#7BA1C7' : '#FFFFFF'}">已完成</button>
-            <button type="button" class="btn btn-default" v-on:click="status ='已批改' "
-                    @change="getstatus" :style="{'background-color' : status==='已批改' ? '#7BA1C7' : '#FFFFFF'}">已批改</button>
-          </div>
+<!--          <div class="btn-group" role="group" aria-label="..." style="margin: 25px;" >-->
+<!--            <button type="button" class="btn btn-default" v-on:click="status ='待完成' "-->
+<!--                    @change="getstatus" :style="{'background-color' : status==='待完成' ? '#7BA1C7' : '#FFFFFF'}">待完成</button>-->
+<!--            <button type="button" class="btn btn-default" v-on:click="status ='已完成' "-->
+<!--                    @change="getstatus" :style="{'background-color' : status==='已完成' ? '#7BA1C7' : '#FFFFFF'}">已完成</button>-->
+<!--            <button type="button" class="btn btn-default" v-on:click="status ='已批改' "-->
+<!--                    @change="getstatus" :style="{'background-color' : status==='已批改' ? '#7BA1C7' : '#FFFFFF'}">已批改</button>-->
+<!--          </div>-->
+
+          <el-tabs v-model="status">
+            <el-tab-pane label="待完成" name="待完成"></el-tab-pane>
+            <el-tab-pane label="已完成" name="已完成"></el-tab-pane>
+            <el-tab-pane label="已批改" name="已批改"></el-tab-pane>
+
+          </el-tabs>
+
+          <div v-if="homework_lst.length==0">暂无作业哦！可加入班级或联系老师！</div>
 
           <div class="allOfArticle">
             <!--作业-->
@@ -75,6 +103,7 @@
 
 <!--      老师-->
       <div class="col-sm-8 hm-right" style="padding:0 25px;" v-if="degree=='JS'">
+        <div v-if="homework_lst.length==0">暂无作业哦！可联系管理员创建班级或布置作业！</div>
 
         <div class="allOfArticle ">
           <!--作业-->
@@ -108,7 +137,7 @@
       name: "home",
       data(){
         return {
-          homework_lst:null,
+          homework_lst:'',
           status:'待完成',
           homework_id:'',
 
@@ -159,6 +188,34 @@
           this.homework_id = res
           this.$store.state.homework_id = res
           this.$router.push('/hmTea')
+        },
+
+        toHome(){
+          this.$router.push('/home')
+        },
+
+        loginOut(){
+
+          this.$confirm('是否退出登录?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$store.state.user = this.user
+            this.$store.state.degree = this.degree
+            this.$router.push('/')
+            this.$message({
+              type: 'info',
+              message: '已登出'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消登出'
+            });
+          });
+
+
         },
 
         getList(){

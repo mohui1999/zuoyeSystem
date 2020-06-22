@@ -1,5 +1,25 @@
 <template>
     <div>
+
+      <div class="container-fluid hidden-xs">
+        <div class="row">
+          <nav class="cc-nav">
+            <ul class="clearfix">
+              <li class="pull-left"><a style="color: #5574F7;" v-on:click="toHome">HOMI</a></li>
+              <li class="pull-left iconfont iconego-menu visible-xs-block"></li>
+              <!--            <li class="pull-right"><img src="../img/man-1.png" alt=""></li>-->
+
+              <li class="pull-right hidden-xs" v-on:click="loginOut"><a>退出登录</a></li>
+              <li class="pull-right hidden-xs" v-on:click="toHome"><a>首页</a></li>
+              <!--          <li class="pull-right hidden-xs"><a>登录</a></li>-->
+
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+      <div style="height: 40px;"></div>
+
       <!-- 作业详情内容 -->
       <div class="container" style="margin-bottom: 40px; ">
         <div class="row">
@@ -236,23 +256,50 @@
                 console.log(response)
                 if ( response.status == 200 && response.body.status=="success"){
                   this.$message({
-                    message: '作业提交成功',
+                    message: '作业提交成功！',
                     type: 'success'
                   });
                   this.getHomework()
                 }else {
-                  this.$message.error('提交失败，请稍后再试');
+                  this.$message.error('提交失败，请稍后再试！');
                 }
               },
               response => {
                 console.log('请求失败');
-                this.$message.error('提交失败，请稍后再试');
+                this.$message.error('提交失败，请稍后再试！');
               });
 
 
           }
 
-        }
+        },
+        toHome(){
+          this.$router.push('/home')
+        },
+
+        loginOut(){
+
+          this.$confirm('是否退出登录?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$store.state.user = this.user
+            this.$store.state.degree = this.degree
+            this.$router.push('/')
+            this.$message({
+              type: 'info',
+              message: '已登出'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消登出'
+            });
+          });
+
+
+        },
 
       },
       watch:{

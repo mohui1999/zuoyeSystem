@@ -1,6 +1,25 @@
 <template>
 
   <div>
+    <div class="container-fluid hidden-xs">
+      <div class="row">
+        <nav class="cc-nav">
+          <ul class="clearfix">
+            <li class="pull-left"><a style="color: #5574F7;" v-on:click="toHome">HOMI</a></li>
+            <li class="pull-left iconfont iconego-menu visible-xs-block"></li>
+            <!--            <li class="pull-right"><img src="../img/man-1.png" alt=""></li>-->
+
+            <li class="pull-right hidden-xs" v-on:click="loginOut"><a>退出登录</a></li>
+            <li class="pull-right hidden-xs" v-on:click="toHome"><a>首页</a></li>
+            <!--          <li class="pull-right hidden-xs"><a>登录</a></li>-->
+
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+    <div style="height: 40px;"></div>
+
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <div class="oneOfArticle" >
@@ -87,7 +106,10 @@
           toAssign(){
             var that = this;
             if(that.title == ''||this.context==''||this.classvalue==''||this.timeString==''){
-              alert("请完整填写题目信息");
+              this.$message({
+                message: '请填写完整题目信息!',
+                type: 'warning'
+              });
             }else{
 
               this.$http.post('https://andatong.top/wxapp/homework_teacher',{
@@ -101,14 +123,17 @@
                   console.log("发布作业")
                   console.log(response)
                   if ( response.status == 200 && response.body.status=="success"){
-                    alert("发送成功！")
+                    this.$message({
+                      message: '发送成功！',
+                      type: 'success'
+                    });
                   }else {
-                    alert("发送失败，请稍后再试！")
+                    this.$message.error('提交失败，请稍后再试！');
                   }
                 },
                 response => {
                   console.log('请求失败');
-                  alert("发送失败，请稍后再试！");
+                  this.$message.error('提交失败，请稍后再试！');
                 });
 
             }
@@ -150,7 +175,7 @@
                   console.log(that.classList)
 
                 }else{
-                  alert("加载失败，请重试！")
+                  alert("数据加载失败，请重试！")
                 }
               },
               response => {
@@ -169,7 +194,34 @@
             var second= date.getSeconds();
             second = minute < 10 ? ('0' + second) : second;
             return y + '-' + m + '-' + d+' '+h+':'+minute;
-          }
+          },
+          toHome(){
+            this.$router.push('/home')
+          },
+
+          loginOut(){
+
+            this.$confirm('是否退出登录?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$store.state.user = this.user
+              this.$store.state.degree = this.degree
+              this.$router.push('/')
+              this.$message({
+                type: 'info',
+                message: '已登出'
+              });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消登出'
+              });
+            });
+
+
+          },
 
         },
       watch:{//监听数据变化
